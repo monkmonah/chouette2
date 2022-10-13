@@ -123,6 +123,25 @@ Instead of using WEBrick, the Rails application may be deployed on [Phusion Pass
 Apache like NGinx can serve static resources,
 so change parameter ```serve_static_assets``` to false in [production.rb](./config/environments/production.rb)
 
+Problems related to proj4
+----------------
+
+If you run into problems related to libProj library, you can try building it from source.
+
+Chouette depends on an older version of libProj. Newer versions that are pre-installed on Linux/MacOS exposes a 
+different API. The latest version of libProj that exposes both the old and new API is 7.2
+
+Download https://download.osgeo.org/proj/proj-7.2.1.tar.gz and
+then follow instructions from https://proj.org/install.html#compilation-and-installation-from-source-code.
+
+The first 3 build steps are sufficient.
+
+Then launch Chouette2 with the PROJ4_LIBRARY_PATH env variable.
+
+```sh
+RAILS_ENV=development PROJ4_LIBRARY_PATH=/<path>/proj-7.2.1/build/lib bundle exec rails server
+```
+
 Test Chouette2
 --------------
 
