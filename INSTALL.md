@@ -129,7 +129,7 @@ Problems related to proj4
 If you run into problems related to libProj library, you can try building it from source.
 
 Chouette depends on an older version of libProj. Newer versions that are pre-installed on Linux/MacOS exposes a 
-different API. The latest version of libProj that exposes both the old and new API is 7.2
+different API. The last version of libProj that exposes both the old and new API is 7.2
 
 Download https://download.osgeo.org/proj/proj-7.2.1.tar.gz and
 then follow instructions from https://proj.org/install.html#compilation-and-installation-from-source-code.
