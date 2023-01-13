@@ -1,0 +1,46 @@
+common:
+  app: chouette2
+  shortname: chouette2
+  team: ror
+
+  service:
+    externalPort: 80
+    internalPort: 3000
+  container:
+    replicas: 2
+    envFrom:
+    - configMapRef:
+          name: chouette-redis-connection
+    image: ${artifact.metadata.image}
+    cpu: 1
+    memory: 3000
+    cpuLimit: 1500m
+    memoryLimit: 3500
+    probes:
+      liveness:
+        path: /
+      readiness:
+        path: /
+    prometheus:
+      enabled: false
+    volumeMounts:
+      - mountPath: /etc/application-config
+        name: application-config
+        readOnly: true
+    volumes:
+      - configMap:
+          defaultMode: 420
+          name: chouette2-application
+        name: application-config
+  postgres:
+    enabled: true
+    memory: 40
+    credentialsSecret: ror-chouette2-secret
+
+
+  configmap:
+    data:
+      RAILS_ENV: production
+      TZ: Europe/Oslo
+    enabled: true
+    toEnv: true

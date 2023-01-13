@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: "0.1.0"
+description: transport planning system
+name: chouette2
+version: 0.1.0
+keywords:
+- chouette2
+sources:
+- https://github.com/entur/chouette2
+maintainers:
+- name: 'team-ror'
+  email: team.rutedata@entur.org
+dependencies:
+  - name: common
+    version: 1.8.1
+    repository: "https://entur.github.io/helm-charts"
