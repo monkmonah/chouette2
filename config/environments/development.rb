@@ -28,7 +28,7 @@ Rails.application.configure do
   config.assets.debug = true
 
 
-  config.log_level = :warn
+  config.log_level = :debug
 
   config.assets.quiet = true
 
