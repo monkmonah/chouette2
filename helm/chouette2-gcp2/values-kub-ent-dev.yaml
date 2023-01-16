@@ -1,7 +1,4 @@
-common:
-  env: dev
-  ingress:
-    enabled: false
+env: dev
 
 sql:
   instance: ent-chouette-dev:europe-west1:chouette-db-pg13=tcp:5432

@@ -3,9 +3,7 @@ kind: Ingress
 metadata:
   labels:
     traffic-type: public
-    app: chouette2
-    shortname: chouette2
-    team: ror
+    {{- include "common.labels" . | indent 4 }}
   annotations:
     kubernetes.io/ingress.class: traefik
     ingress.kubernetes.io/custom-response-headers: 'x-frame-options: '
@@ -13,12 +11,16 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   rules:
-  - host: rutedb.{{ .Values.ingress.domain }}
+  {{- if eq .Values.env "prod"}}
+  - host: rutedb.entur.org
+  {{ else }}
+  - host: rutedb.{{ .Release.Namespace }}.entur.org
+  {{- end}}
     http:
       paths:
         - pathType: ImplementationSpecific
           backend:
             service:
-              name: chouette2
+              name: {{ template "chouette2.name" . }}
               port:
-                number: {{ .Values.common.service.externalPort }}
+                number: {{ .Values.service.http.externalPort }}

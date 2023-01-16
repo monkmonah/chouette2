@@ -68,10 +68,7 @@ data:
       database: chouette
 kind: ConfigMap
 metadata:
-  name: chouette2-application
+  name: {{ template "chouette2.name" . }}-config
   namespace: {{ .Release.Namespace }}
   labels:
-    app: chouette2
-    shortname: chouette2
-    team: ror
-
+    {{- include "common.labels" . | indent 4 }}
