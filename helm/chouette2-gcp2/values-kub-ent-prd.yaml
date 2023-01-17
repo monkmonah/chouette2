@@ -1,0 +1,13 @@
+env: prod
+
+sql:
+  instance: ent-chouette-prd:europe-west1:chouette-db-pg13=tcp:5432
+
+chouetteUrl: http://chouette.prd.entur.internal
+osrmRailUrl: http://osrm-rail.prd.entur.internal
+osrmBusUrl: http://osrm-bus.prd.entur.internal
+osrmWaterUrl: http://osrm-water.prd.entur.internal
+
+ingress:
+  domain: entur.org
+
