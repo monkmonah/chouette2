@@ -26,7 +26,7 @@ class Chouette::Command
   end
 
   def database_options_from_active_record
-    config = Chouette::ActiveRecord.connection_pool.spec.config
+    config = Chouette::ActiveRecord.connection_pool.db_config
     { 
       :database => config[:database], 
       :user => config[:username],
