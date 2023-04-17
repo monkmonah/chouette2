@@ -5,7 +5,7 @@ class Chouette::Loader
   def initialize(schema)
     @schema = schema
 
-    Chouette::ActiveRecord.connection_pool.spec.config.tap do |config|
+    Chouette::ActiveRecord.connection_pool.db_config do |config|
       @database = config[:database]
       @user = config[:username]
       @password = config[:password]
