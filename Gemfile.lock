@@ -89,7 +89,7 @@ GIT
 GEM
   remote: https://rails-assets.org/
   specs:
-    matrix (0.3.1)
+    matrix (0.4.2)
     rails-assets-bootstrap (3.1.1)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-bootstrap-sass-official (3.3.7)
