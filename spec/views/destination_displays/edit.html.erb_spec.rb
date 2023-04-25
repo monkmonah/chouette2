@@ -15,10 +15,9 @@ describe "/destination_displays/edit", :type => :view do
   describe "form" do
     it "should render input for name" do
       render
-      expect(rendered).to have_selector("form") do
-        with_tag "input[type=text][name='destination_display[name]'][value=?]", destination_display.name
+      expect(rendered).to have_selector("form") do |form|
+        expect(form).to have_selector("input[type=text][name='destination_display[name]'][value='#{destination_display.name}']")
       end
     end
   end
-
 end

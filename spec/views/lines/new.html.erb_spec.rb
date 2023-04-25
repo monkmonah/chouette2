@@ -10,10 +10,9 @@ describe "/lines/new", :type => :view do
     
     it "should render input for name" do
       render
-      expect(rendered).to have_selector("form") do
-        with_selector "input[type=text][name=?]", line.name
+      expect(rendered).to have_selector("form") do |form|
+        expect(form).to have_selector("input[type=text][value='#{line.name}']")
       end
     end
-
   end
 end
