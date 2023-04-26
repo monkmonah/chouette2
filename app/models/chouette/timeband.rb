@@ -3,7 +3,7 @@ module Chouette
   class TimebandValidator < ActiveModel::Validator
     def validate(record)
       if record.end_time <= record.start_time
-        record.errors[:end_time] << I18n.t('activerecord.errors.models.timeband.start_must_be_before_end')
+        record.errors.add(:end_time, message: I18n.t('activerecord.errors.models.timeband.start_must_be_before_end'))
       end
     end
   end
