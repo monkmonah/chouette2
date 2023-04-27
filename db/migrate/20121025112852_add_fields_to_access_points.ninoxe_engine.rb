@@ -8,6 +8,6 @@ class AddFieldsToAccessPoints < ActiveRecord::Migration[4.2]
     rename_column "access_points", "type","access_type"
     change_column "access_points", "openning_time","time"
     change_column "access_points", "closing_time","time"
-    add_column "access_points", "stop_area_id", "integer", {:limit => 8}
+    add_column "access_points", "stop_area_id", "integer", limit: 8
   end
 end

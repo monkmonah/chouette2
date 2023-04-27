@@ -18,8 +18,8 @@ describe "/codespaces/edit", :type => :view do
   describe "form" do
     it "should render input for name" do
       render
-      expect(rendered).to have_selector("form") do
-        with_tag "input[type=text][name='codespace[name]'][value=?]", codespace.xmlns
+      expect(rendered).to have_selector("form") do |form|
+        expect(form).to have_selector("input[type=text][name='codespace[xmlns]'][value=#{codespace.xmlns}]")
       end
     end
   end

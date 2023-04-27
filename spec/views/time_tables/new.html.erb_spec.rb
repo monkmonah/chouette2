@@ -8,10 +8,9 @@ describe "/time_tables/new", :type => :view do
     
     it "should render input for comment" do
       render
-      expect(rendered).to have_selector("form") do
-        with_selector "input[type=text][comment=?]", time_table.comment
+      expect(rendered).to have_selector("form") do |form|
+        expect(form).to have_selector("input[type=text][value='#{time_table.comment}']")
       end
     end
-
   end
 end

@@ -15,10 +15,9 @@ describe "/connection_links/edit", :type => :view do
   describe "form" do
     it "should render input for name" do
       render
-      expect(rendered).to have_selector("form") do
-        with_tag "input[type=text][name='connection_link[name]'][value=?]", connection_link.name
+      expect(rendered).to have_selector("form") do |form|
+        expect(form).to have_selector("input[type=text][name='connection_link[name]'][value='#{connection_link.name}']")
       end
     end
   end
-
 end
