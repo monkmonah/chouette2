@@ -120,10 +120,10 @@ workflows:
     jobs:
       - build:
          context: global
-      -  deploy-docker:
-           context: global
-           requires:
-             - build
-           filters:
-             branches:
-               only: rutebanken_develop
+      - deploy-docker:
+         context: global
+         requires:
+           - build
+         filters:
+           branches:
+             only: rutebanken_develop
