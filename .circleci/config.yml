@@ -121,8 +121,5 @@ workflows:
            context: global
            requires:
              - build
-           filters:
-             branches:
-               only: rutebanken_develop
       - build:
           context: global
