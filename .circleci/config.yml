@@ -119,11 +119,11 @@ workflows:
   build_test_deploy:
     jobs:
       - build:
-         context: global
+           context: global
       - deploy-docker:
-         context: global
-         requires:
-           - build
-         filters:
-           branches:
-             only: rutebanken_develop
+           context: global
+           requires:
+             - build
+           filters:
+             branches:
+               only: rutebanken_develop
