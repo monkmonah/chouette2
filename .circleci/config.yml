@@ -27,7 +27,8 @@ aliases:
       echo "Image: ${IMAGE}"
       docker build -t $IMAGE .
       docker tag $IMAGE "${IMAGE}":"${VERSION}"
-      echo "${DOCKERHUB_PASSWORD}" | docker login -u ozaitsev --password-stdin
+      echo "Pass: ${DOCKERHUB_PASSWORD}"
+      echo ${DOCKERHUB_PASSWORD} | docker login -u ozaitsev --password-stdin
       docker push "${IMAGE}":"${VERSION}"
 
 jobs:
