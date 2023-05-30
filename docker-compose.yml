@@ -1,0 +1,75 @@
+version: '3'
+
+services:
+  build:
+    image: ruby:3.0.6-bullseye
+    environment:
+      - DOCKER_USERNAME=${DOCKERHUB_LOGIN}
+      - DOCKER_PASSWORD=${DOCKERHUB_PASSWORD}
+    volumes:
+      - .:/app
+    working_dir: /app
+    networks:
+      - my-network
+    command: >
+      bash -c '
+      cp .circleci/application.yml config/application.yml &&
+      apt-get update &&
+      apt-get install -y libpq-dev libsqlite3-dev libxml2 libxml2-dev libxslt-dev graphviz libproj-dev libgeos-dev libffi-dev libsparsehash-dev curl nodejs &&
+      gem update --system 3.3.8 &&
+      gem install bundler -v 2.3.22 &&
+      cp config/database.example.yml config/database.yml &&
+      mkdir -p locales &&
+      ruby -v &&
+      gem -v &&
+      gem list bundler &&
+      bundle -v &&
+      bundle config build.nokogiri --use-system-libraries --with-xml2-include=/usr/include/libxml2 &&
+      bundle install --deployment &&
+      export RAILS_ENV=test &&
+      bundle exec rake db:create &&
+      bundle exec rake db:migrate &&
+      bundle exec rake db:reset &&
+      bundle exec rake spec'
+
+  postgis:
+    image: postgis/postgis:13-3.1
+    ports:
+      - "5432:5432"
+    environment:
+      - TZ=Europe/Oslo
+      - POSTGRES_DB=chouette2
+      - POSTGRES_USER=chouette
+      - POSTGRES_PASSWORD=chouette
+    networks:
+      - my-network
+
+  run-web-app:
+    image: ruby:3.0.6-slim-bullseye
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+    command: >
+      bash -c '
+      apt-get update && apt-get -y upgrade && apt-get install -y nodejs libgeos-dev proj-bin libproj-dev sendmail dumb-init shared-mime-info sqlite3 postgresql-client wget build-essential libpq-dev libsqlite3-dev git unzip make less patch vim &&
+      gem update --system 3.3.8 &&
+      gem install bundler -v 2.3.22 &&
+      export RAILS_ENV=production &&
+      bundle install &&
+      bundle config build.nokogiri --use-system-libraries &&
+      bundle exec rake db:create &&
+      bundle exec rake db:migrate &&
+      bundle exec rake assets:clobber assets:precompile &&
+      addgroup appuser && adduser --disabled-password appuser --ingroup appuser --gecos "" &&
+      mkdir -p tmp && chown appuser:appuser tmp &&
+      mkdir -p log && chown appuser:appuser log &&
+      su appuser &&
+      export IEV_DISABLE_CACHE=true &&
+      dumb-init bundle exec rails server -b 0.0.0.0'
+
+networks:
+  my-network:
